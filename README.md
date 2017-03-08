@@ -1,4 +1,4 @@
-# elgiphy
+# Elgiphy
 
 ## To Use
 
