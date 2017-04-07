@@ -1,60 +1,84 @@
-const electron = require('electron')
-// Module to control application life.
-const app = electron.app
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
+const Electron = require("electron");
 
-const path = require('path')
-const url = require('url')
+let tray = null;
+let browser = null;
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow
+Electron.app.dock.hide();
 
-function createWindow () {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
-
-  // and load the index.html of the app.
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
-
-  // Emitted when the window is closed.
-  mainWindow.on('closed', function () {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null
-  })
+function createTray() {
+	if (tray) return;
+	tray = new Electron.Tray('tray.png');
+	tray.on("click", (event, bounds) => {
+		if (!browser) createBrowser();
+		toggleBrowser(bounds);
+	});
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+function createBrowser() {
+	if (browser) return;
+	const options = {
+		show:        false,
+		frame:       false,
+		resizable:   false,
+		width:       350,
+		height:      500
+	}
+	browser = new Electron.BrowserWindow(options);
+	browser.on("blur", hideBrowser);
+	browser.webContents.on("new-window", (event, url) => {
+		event.preventDefault();
+		Electron.shell.openExternal(url);
+	});
+	browser.openDevTools();
+	browser.loadURL(`file://${__dirname}/index.html`);
+}
 
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
+function showBrowser(bounds) {
+	browser.setPosition(parseInt(bounds.x - (350 / 2) + (bounds.width / 2)), bounds.y  + 14);
+	browser.show();
+	tray.setHighlightMode("always");
+}
 
-app.on('activate', function () {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
+function hideBrowser() {
+	browser.hide();
+	tray.setHighlightMode("never");
+	Electron.Menu.sendActionToFirstResponder("hide:");
+}
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
+function toggleBrowser(bounds) {
+	if (!browser) createBrowser();
+	if (browser.isVisible()) hideBrowser();
+	else showBrowser(bounds || tray.getBounds());
+}
+
+Electron.ipcMain.on("hide-browser", (event, data) => {
+	if (data) hideBrowser();
+});
+
+Electron.app.on("ready", event => {
+	Electron.Menu.setApplicationMenu(Electron.Menu.buildFromTemplate([
+		{
+			label: "Edit",
+			submenu: [
+				{role: "undo"},
+				{role: "redo"},
+				{type: "separator"},
+				{role: "copy"},
+				{role: "cut"},
+				{role: "paste"},
+				{role: "pasteandmatchstyle"},
+				{role: "delete"},
+				{role: "selectall"},
+			]
+		}
+	]));
+
+	createTray();
+	Electron.globalShortcut.register("CommandOrControl+Shift+Space", () => {
+		toggleBrowser();
+	});
+});
+
+Electron.app.on("will-quit", event => {
+	Electron.globalShortcut.unregister("CommandOrControl+Shift+Space");
+});

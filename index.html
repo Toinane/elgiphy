@@ -2,18 +2,44 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>elgiphy</title>
+    <style media="screen">
+      body{
+        background: #ECF1F6;
+        font-family: sans-serif;
+      }
+      img{
+        width: 100%;
+        height: auto;
+        cursor: pointer;
+      }
+      header{
+        background: #ECF1F6;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+        header p{
+          cursor: pointer;
+        }
+      #gifs{
+        margin-top: 50px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <header>
+      <p id="trend">Trend</p>
+      <p id="fav">Favoris</p>
+      <p id="rand">Random</p>
+      <input type="text" placeholder="Search" />
+    </header>
+    <section id="gifs"></section>
   </body>
-
   <script>
-    // You can also require other files to run in this process
     require('./renderer.js')
   </script>
 </html>
