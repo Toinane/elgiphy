@@ -3,7 +3,7 @@
 function getGif(link){
   return new Promise(function(resolve, reject){
     let xhr = new XMLHttpRequest();
-    xhr.open("get", link);
+    xhr.open("get", 'http://api.giphy.com/v1/gifs' + link + '?api_key=dc6zaTOxFJmzC');
     xhr.setRequestHeader("accept", "application/json");
     xhr.onload = function () {
       resolve(JSON.parse(xhr.responseText))
@@ -15,7 +15,7 @@ function getGif(link){
 function random(){
   document.querySelector('#gifs').innerHTML = '';
   for(let i = 0; i < 10; i++){
-    getGif('http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC')
+    getGif('/random')
     .then(function(json){
       console.log(json);
       let img = document.createElement('img');
@@ -29,7 +29,7 @@ function random(){
 
 function trend(){
   document.querySelector('#gifs').innerHTML = '';
-  getGif('http://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC')
+  getGif('/trending')
   .then(function(json){
     Object.keys(json.data).map(function(key, index){
       let img = document.createElement('img');
@@ -42,7 +42,7 @@ function trend(){
 
 function search(word){
   document.querySelector('#gifs').innerHTML = '';
-  getGif('http://api.giphy.com/v1/gifs/search?q='+word+'&api_key=dc6zaTOxFJmzC')
+  getGif('/search?q='+word)
   .then(function(json){
     console.log(json);
     Object.keys(json.data).map(function(key, index){

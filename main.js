@@ -1,15 +1,33 @@
-const Electron = require("electron");
+'use strict';
 
+const electron = require('electron');
+const {app, BrowserWindow, Tray} = require('electron');
+
+const platform = process.platform;
 let tray = null;
 let browser = null;
 
-Electron.app.dock.hide();
+// Unshow the icon in dock application on macOS.
+if(platform == 'darwin'){
+	app.dock.hide();
+}
+
+app.on("ready", event => {
+	electron.globalShortcut.register("CommandOrControl+Shift+Space");
+	createTray();
+});
+
+app.on("will-quit", event => {
+	electron.globalShortcut.unregister("CommandOrControl+Shift+Space");
+});
+
 
 function createTray() {
 	if (tray) return;
-	tray = new Electron.Tray('tray.png');
+
+	tray = new Tray(`ressources/tray@3x.png`);
+
 	tray.on("click", (event, bounds) => {
-		if (!browser) createBrowser();
 		toggleBrowser(bounds);
 	});
 }
@@ -23,26 +41,25 @@ function createBrowser() {
 		width:       350,
 		height:      500
 	}
-	browser = new Electron.BrowserWindow(options);
+	browser = new BrowserWindow(options);
 	browser.on("blur", hideBrowser);
-	browser.webContents.on("new-window", (event, url) => {
-		event.preventDefault();
-		Electron.shell.openExternal(url);
-	});
-	browser.openDevTools();
-	browser.loadURL(`file://${__dirname}/index.html`);
+
+	//browser.openDevTools();
+	browser.loadURL(`file://${__dirname}/src/index.html`);
 }
 
 function showBrowser(bounds) {
+	tray.setImage(`ressources/tray-white@3x.png`);
 	browser.setPosition(parseInt(bounds.x - (350 / 2) + (bounds.width / 2)), bounds.y  + 14);
 	browser.show();
 	tray.setHighlightMode("always");
 }
 
 function hideBrowser() {
+	tray.setImage(`ressources/tray@3x.png`);
 	browser.hide();
 	tray.setHighlightMode("never");
-	Electron.Menu.sendActionToFirstResponder("hide:");
+	electron.Menu.sendActionToFirstResponder("hide:");
 }
 
 function toggleBrowser(bounds) {
@@ -50,35 +67,3 @@ function toggleBrowser(bounds) {
 	if (browser.isVisible()) hideBrowser();
 	else showBrowser(bounds || tray.getBounds());
 }
-
-Electron.ipcMain.on("hide-browser", (event, data) => {
-	if (data) hideBrowser();
-});
-
-Electron.app.on("ready", event => {
-	Electron.Menu.setApplicationMenu(Electron.Menu.buildFromTemplate([
-		{
-			label: "Edit",
-			submenu: [
-				{role: "undo"},
-				{role: "redo"},
-				{type: "separator"},
-				{role: "copy"},
-				{role: "cut"},
-				{role: "paste"},
-				{role: "pasteandmatchstyle"},
-				{role: "delete"},
-				{role: "selectall"},
-			]
-		}
-	]));
-
-	createTray();
-	Electron.globalShortcut.register("CommandOrControl+Shift+Space", () => {
-		toggleBrowser();
-	});
-});
-
-Electron.app.on("will-quit", event => {
-	Electron.globalShortcut.unregister("CommandOrControl+Shift+Space");
-});
