@@ -1,7 +1,6 @@
 'use strict';
 
-const electron = require('electron');
-const {app, BrowserWindow, Tray} = require('electron');
+const {app, BrowserWindow, Tray, globalShortcut} = require('electron');
 
 const platform = process.platform;
 let tray = null;
@@ -13,12 +12,14 @@ if(platform == 'darwin'){
 }
 
 app.on("ready", event => {
-	electron.globalShortcut.register("CommandOrControl+Shift+Space");
+	globalShortcut.register("CommandOrControl+Shift+Space", function(){
+
+	});
 	createTray();
 });
 
 app.on("will-quit", event => {
-	electron.globalShortcut.unregister("CommandOrControl+Shift+Space");
+	globalShortcut.unregister("CommandOrControl+Shift+Space");
 });
 
 
@@ -39,7 +40,7 @@ function createBrowser() {
 		frame:       false,
 		resizable:   false,
 		width:       350,
-		height:      500
+		height:      600
 	}
 	browser = new BrowserWindow(options);
 	browser.on("blur", hideBrowser);
@@ -59,7 +60,6 @@ function hideBrowser() {
 	tray.setImage(`ressources/tray@3x.png`);
 	browser.hide();
 	tray.setHighlightMode("never");
-	electron.Menu.sendActionToFirstResponder("hide:");
 }
 
 function toggleBrowser(bounds) {
