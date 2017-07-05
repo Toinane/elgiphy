@@ -2,6 +2,7 @@
 
 const {clipboard} = require('electron');
 
+
 let getGif = link => (
   new Promise((resolve, reject) => {
     let xhr = new XMLHttpRequest();
@@ -12,6 +13,18 @@ let getGif = link => (
   })
 );
 
+
+let activeButton = button => {
+  document.querySelector('#gifs').innerHTML = '';
+  if(document.querySelector('.active')){
+    document.querySelector('.active').classList.remove('active');
+  }
+  if(button){
+    document.querySelector(`#${button}`).classList.add('active');
+  }
+};
+
+
 let showGifs = json => {
   Object.keys(json.data).map(function(key, index){
     let img = document.createElement('img');
@@ -19,10 +32,11 @@ let showGifs = json => {
     document.querySelector('#gifs').appendChild(img);
     img.addEventListener('click', event => clipboard.writeText(event.target.src));
   });
-}
+};
+
 
 let random = max => {
-  document.querySelector('#gifs').innerHTML = '';
+  activeButton('rand');
   for(let i = 0; i < max; i++){
     getGif(`/random?`)
       .then(json => {
@@ -32,19 +46,22 @@ let random = max => {
         img.addEventListener('click', event => clipboard.writeText(event.target.src));
       });
   }
-}
+};
+
 
 let trend = () => {
-  document.querySelector('#gifs').innerHTML = '';
+  activeButton('trend');
   getGif(`/trending?`)
     .then(json => showGifs(json));
-}
+};
+
 
 let search = word => {
-  document.querySelector('#gifs').innerHTML = '';
+  activeButton();
   getGif(`/search?q='${word}&`)
     .then(json => showGifs(json));
-}
+};
+
 
 document.addEventListener('DOMContentLoaded', () => trend());
 document.querySelector('#rand').addEventListener('click', () => random(10));

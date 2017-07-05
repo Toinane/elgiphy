@@ -1,0 +1,26 @@
+body{
+  font-family: sans-serif;
+}
+img{
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+header{
+
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+  header p{
+    cursor: pointer;
+  }
+#gifs{
+  margin-top: 50px;
+}
+.active{
+  font-weight: bold;
+}

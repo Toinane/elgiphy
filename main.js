@@ -39,6 +39,7 @@ function createBrowser() {
 		show:        false,
 		frame:       false,
 		resizable:   false,
+		vibrancy:		'light',
 		width:       350,
 		height:      600
 	}
