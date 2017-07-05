@@ -1,8 +1,8 @@
 # Elgiphy
 
-## To Use
+## How To Use
 
-To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
+Running this requires [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which includes [npm](http://npmjs.com)) on your system.
 
 ```bash
 # Clone this repository
@@ -13,4 +13,19 @@ cd elgiphy
 npm install
 # Run the app
 npm start
+```
+
+## How to build
+
+Use the '**build-app**' branch on your clone.
+
+```bash
+# Clone this repository
+git clone https://github.com/toinane/elgiphy.git
+# Go into the repository
+cd elgiphy
+# Change to 'build-app' branch
+git checkout build-app
+# build app
+npm run build
 ```
