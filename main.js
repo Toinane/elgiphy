@@ -26,7 +26,7 @@ app.on("will-quit", event => {
 function createTray() {
 	if (tray) return;
 
-	tray = new Tray(`ressources/tray@3x.png`);
+	tray = new Tray(`${__dirname}/ressources/tray@3x.png`);
 
 	tray.on("click", (event, bounds) => {
 		toggleBrowser(bounds);
@@ -51,14 +51,14 @@ function createBrowser() {
 }
 
 function showBrowser(bounds) {
-	tray.setImage(`ressources/tray-white@3x.png`);
+	tray.setImage(`${__dirname}/ressources/tray-white@3x.png`);
 	browser.setPosition(parseInt(bounds.x - (350 / 2) + (bounds.width / 2)), bounds.y  + 14);
 	browser.show();
 	tray.setHighlightMode("always");
 }
 
 function hideBrowser() {
-	tray.setImage(`ressources/tray@3x.png`);
+	tray.setImage(`${__dirname}/ressources/tray@3x.png`);
 	browser.hide();
 	tray.setHighlightMode("never");
 }
