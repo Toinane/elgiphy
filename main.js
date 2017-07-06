@@ -31,13 +31,14 @@ function createTray() {
 function createBrowser() {
 	if (browser) return;
 	const options = {
-		show:        false,
-		frame:       false,
-		resizable:   false,
-		vibrancy:		'selection',
-		width:       350,
-		height:      600
+		width: 350,
+		height: 600,
+		show: false,
+		frame: false,
+		resizable: false,
+		vibrancy: 'selection'
 	}
+	
 	browser = new BrowserWindow(options);
 	browser.on("blur", hideBrowser);
 
