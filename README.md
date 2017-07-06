@@ -24,8 +24,8 @@ Use the '**build-app**' branch on your clone.
 git clone https://github.com/toinane/elgiphy.git
 # Go into the repository
 cd elgiphy
-# Change to 'build-app' branch
-git checkout build-app
+# Change to 'final.build-app' branch
+git checkout final.build-app
 # build app
 npm run build
 ```
