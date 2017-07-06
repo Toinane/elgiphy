@@ -1,15 +1,11 @@
 'use strict';
 
-const {app, BrowserWindow, Tray, globalShortcut} = require('electron');
+const {app, BrowserWindow, Tray, globalShortcut, ipcMain} = require('electron');
 
 const platform = process.platform;
 let tray = null;
 let browser = null;
 
-// Unshow the icon in dock application on macOS.
-if(platform == 'darwin'){
-	app.dock.hide();
-}
 
 app.on("ready", event => {
 	globalShortcut.register("CommandOrControl+Shift+Space", function(){
@@ -20,6 +16,13 @@ app.on("ready", event => {
 
 app.on("will-quit", event => {
 	globalShortcut.unregister("CommandOrControl+Shift+Space");
+});
+
+ipcMain.once('viewActive', () => {
+	// Unshow the icon in dock application on macOS.
+	if(platform == 'darwin'){
+		app.dock.hide();
+	}
 });
 
 

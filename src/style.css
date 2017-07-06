@@ -24,6 +24,21 @@ header{
   align-items: center;
 }
 
+  #quit{
+    position: absolute;
+    top: -14px; left: 2px;
+    width: 9px; height: 9px;
+    cursor: pointer;
+    z-index: 2000;
+    background: #D58B8A;
+    border-radius: 10px;
+    transition: 0.2s;
+  }
+  #quit:hover{
+    cursor: pointer;
+    background: #FF6D5F;
+  }
+
   header p{
     color: #747474;
     cursor: pointer;
