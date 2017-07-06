@@ -7,16 +7,8 @@ let tray = null;
 let browser = null;
 
 
-app.on("ready", event => {
-	globalShortcut.register("CommandOrControl+Shift+Space", function(){
+app.on("ready", event => createTray());
 
-	});
-	createTray();
-});
-
-app.on("will-quit", event => {
-	globalShortcut.unregister("CommandOrControl+Shift+Space");
-});
 
 ipcMain.once('viewActive', () => {
 	// Unshow the icon in dock application on macOS.
