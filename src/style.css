@@ -1,13 +1,21 @@
-body{
-  font-family: sans-serif;
-}
-img{
-  width: 100%;
-  height: auto;
-  cursor: pointer;
-}
-header{
 
+/* Mini Reset */
+
+html, body{
+  height: 100%;
+}
+
+body{
+  margin: 0;
+  font-family: sans-serif;
+  overflow-y: hidden;
+}
+
+/* Header */
+
+header{
+  background: linear-gradient(#F0F0F0, #E5E5E5);
+  border-bottom: 1px solid #C6C6C6;
   position: fixed;
   top: 0; left: 0;
   width: 100%;
@@ -15,12 +23,49 @@ header{
   justify-content: space-around;
   align-items: center;
 }
+
   header p{
+    color: #747474;
     cursor: pointer;
   }
+
+  header p:not(.active):hover, header input:not(.active):hover{
+    color: #929292;
+  }
+
+  .active{
+    color: #4DC1FA;
+  }
+
+  header input{
+    outline: none;
+    background: url('search-icon.png') no-repeat 4px center, #FAFAFA;
+    background-size: 17px;
+    border: 1px solid #E5E5E5;
+    padding: 4px 7px 4px 28px;
+    border-radius: 5px;
+    width: 100px;
+    font-size: 0.9em;
+    color: #747474;
+  }
+
+
+/* Section */
+
 #gifs{
   margin-top: 50px;
+  padding-top: 5px;
+  overflow-y: scroll;
+  height: calc(100% - 50px);
+  box-sizing: border-box;
 }
-.active{
-  font-weight: bold;
+
+#gifs::-webkit-scrollbar {
+    width: 0;
 }
+
+  #gifs img{
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+  }

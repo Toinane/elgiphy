@@ -57,7 +57,7 @@ let trend = () => {
 
 
 let search = word => {
-  activeButton();
+  activeButton('search');
   getGif(`/search?q='${word}&`)
     .then(json => showGifs(json));
 };
