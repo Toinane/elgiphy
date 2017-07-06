@@ -10,7 +10,7 @@ let browser = null;
 app.on("ready", event => createTray());
 
 
-ipcMain.on('viewActive', () => {
+ipcMain.once('viewActive', () => {
 	// Unshow the icon in dock application on macOS.
 	// if(platform == 'darwin'){
 	// 	app.dock.hide();
