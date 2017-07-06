@@ -2,14 +2,8 @@
 
 const {app, BrowserWindow, globalShortcut, ipcMain} = require('electron');
 
-app.on("ready", event => {
-	globalShortcut.register("CommandOrControl+Shift+Space", function(){});
-	createBrowser();
-});
+app.on("ready", event => createBrowser());
 
-app.on("will-quit", event => {
-	globalShortcut.unregister("CommandOrControl+Shift+Space");
-});
 
 ipcMain.on('viewActive', (event, message) => {
 	console.log(message);
