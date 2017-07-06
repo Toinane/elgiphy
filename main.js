@@ -6,8 +6,8 @@ app.on("ready", event => createBrowser());
 
 function createBrowser() {
 	const options = {
-		width:       350,
-		height:      600
+		width: 350,
+		height: 600
 	}
 
 	let browser = new BrowserWindow(options);
