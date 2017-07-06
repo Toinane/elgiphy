@@ -4,30 +4,17 @@
   "description": "Electron App for giphy",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "build": "electron-builder"
+    "start": "electron ."
   },
   "repository": "https://github.com/toinane/elgiphy",
   "keywords": [
     "Electron",
     "Gif"
   ],
-  "build": {
-    "appId": "com.electron.elgiphy",
-    "productName": "Elgiphy",
-    "mac": {
-      "category": "public.app-category.utilities"
-    },
-    "files": [
-      "**/*",
-      "dist/*"
-    ]
-  },
   "author": "Toinane",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.6.2",
-    "electron-builder": "^19.13.0"
+    "electron": "~1.6.2"
   },
   "dependencies": {}
 }

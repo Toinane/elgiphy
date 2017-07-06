@@ -63,19 +63,11 @@ let search = word => {
 };
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  const {ipcRenderer} = require('electron');
-  ipcRenderer.send('viewActive');
-  trend();
-});
+document.addEventListener('DOMContentLoaded', () => trend());
 document.querySelector('#rand').addEventListener('click', () => random(10));
 document.querySelector('#trend').addEventListener('click', () => trend());
 document.querySelector('input').addEventListener('keyup', function(event){
   if(event.key === 'Enter'){
     search(this.value);
   }
-});
-document.querySelector('#quit').addEventListener('click', () => {
-  const app = require('electron').remote.app;
-  app.quit();
 });
