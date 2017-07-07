@@ -12,9 +12,9 @@ app.on("ready", event => createTray());
 
 ipcMain.once('viewActive', () => {
 	// Unshow the icon in dock application on macOS.
-	// if(platform == 'darwin'){
-	// 	app.dock.hide();
-	// }
+	if(platform == 'darwin'){
+		app.dock.hide();
+	}
 });
 
 function createTray() {
@@ -27,6 +27,7 @@ function createTray() {
 }
 
 function createBrowser() {
+	if (browser) return;
 	const options = {
 		width: 350,
 		height: 600,
@@ -45,7 +46,7 @@ function createBrowser() {
 
 function showBrowser(bounds) {
 	tray.setImage(`${__dirname}/ressources/tray-white@3x.png`);
-	//browser.setPosition(parseInt(bounds.x - (350 / 2) + (bounds.width / 2)), bounds.y  + 14);
+	browser.setPosition(parseInt(bounds.x - (350 / 2) + (bounds.width / 2)), bounds.y  + 14);
 	browser.show();
 	tray.setHighlightMode("always");
 }
