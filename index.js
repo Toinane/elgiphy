@@ -1,7 +1,5 @@
 'use strict';
 
-const {clipboard} = require('electron');
-
 
 let getGif = link => (
   new Promise((resolve, reject) => {
@@ -30,7 +28,7 @@ let showGifs = json => {
     let img = document.createElement('img');
     img.src = json.data[index].images.original.url;
     document.querySelector('#gifs').appendChild(img);
-    img.addEventListener('click', event => clipboard.writeText(event.target.src));
+    img.addEventListener('click', event => {});
   });
 };
 
@@ -43,7 +41,7 @@ let random = max => {
         let img = document.createElement('img');
         img.src = json.data.image_url;
         document.querySelector('#gifs').appendChild(img);
-        img.addEventListener('click', event => clipboard.writeText(event.target.src));
+        img.addEventListener('click', event => {});
       });
   }
 };

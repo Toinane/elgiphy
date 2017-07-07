@@ -59,12 +59,12 @@ header{
   box-sizing: border-box;
 }
 
-#gifs::-webkit-scrollbar {
-    width: 0;
-}
+
 
   #gifs img{
-    width: 100%;
+    width: 30%;
+    margin: auto;
+    display: block;
     height: auto;
     cursor: pointer;
   }
