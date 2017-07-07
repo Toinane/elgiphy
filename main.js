@@ -12,7 +12,7 @@ function createBrowser() {
 		height: 600
 	}
 
-	let browsner = new BrowserWindow(options);
+	let browser = new BrowserWindow(options);
 	browser.openDevTools();
 	browser.loadURL(`file://${__dirname}/src/index.html`);
 }
