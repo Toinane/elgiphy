@@ -63,6 +63,7 @@ let search = word => {
 };
 
 
+
 document.addEventListener('DOMContentLoaded', () => {
   const {ipcRenderer} = require('electron');
   ipcRenderer.send('viewActive');

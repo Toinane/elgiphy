@@ -17,12 +17,10 @@ ipcMain.once('viewActive', () => {
 	}
 });
 
-
 function createTray() {
 	if (tray) return;
 
 	tray = new Tray(`${__dirname}/ressources/tray@3x.png`);
-
 	tray.on("click", (event, bounds) => {
 		toggleBrowser(bounds);
 	});
@@ -38,7 +36,7 @@ function createBrowser() {
 		resizable: false,
 		vibrancy: 'selection'
 	}
-	
+
 	browser = new BrowserWindow(options);
 	browser.on("blur", hideBrowser);
 
