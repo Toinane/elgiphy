@@ -63,9 +63,10 @@ let search = word => {
 };
 
 
+
 document.addEventListener('DOMContentLoaded', () => {
   const {ipcRenderer} = require('electron');
-  ipcRenderer.send('viewActive', 'hello world!');
+  ipcRenderer.send('viewActive');
   trend();
 });
 document.querySelector('#rand').addEventListener('click', () => random(10));
