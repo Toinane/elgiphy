@@ -1,6 +1,6 @@
 {
   "name": "elgiphy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Electron App for giphy",
   "main": "main.js",
   "scripts": {
@@ -26,8 +26,8 @@
   "author": "Toinane",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "~1.6.2",
-    "electron-builder": "^19.13.0"
+    "electron": "7.1.1",
+    "electron-builder": "^22.1.0"
   },
   "dependencies": {}
 }
